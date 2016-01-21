@@ -36,6 +36,14 @@ zookeeper.connection.timeout.ms=${ZOOKEEPER_CONNECTION_TIMEOUT}
 EOF
 }
 
+prereques()
+{
+	while ! exec 6<>/dev/tcp/${ZOOKEEPER_HOST}/${ZOOKEEPER_PORT}; do
+	   echo "$(date) - still waiting for the zookeeper service at ${ZOOKEEPER_HOST}"
+	   sleep 10
+	done
+}
+
 
 # Initalize the container
 init_container()
@@ -55,6 +63,7 @@ start_container()
 # Start the all service
 start_all() 
 {
+	prereques
 	cd /usr/local/$KAFKA_VERSION/ && bin/kafka-server-start.sh config/server.properties &> /tmp/kafka-logs/kafka.out&
 }
 
