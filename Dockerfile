@@ -61,5 +61,4 @@ RUN mkdir -p /tmp/kafka-logs/
 
 COPY conf/run.sh /usr/bin/run.sh
 RUN chmod u+x /usr/bin/run.sh
-ENTRYPOINT ["/usr/bin/run.sh"]
-CMD ["run"]
+CMD ["/usr/bin/run.sh"]
