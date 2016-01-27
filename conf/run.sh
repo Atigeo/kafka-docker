@@ -45,17 +45,11 @@ prereques()
 }
 
 
-# Initalize the container
-init_container()
-{ 
-        build_config
-        start_container
-}
-
 # Start everything and tail logs to keep PID 1 going.
 start_container() 
 {
-	start_all
+	build_config
+        start_all
 	sleep 1
 	tail -f /tmp/kafka-logs/kafka.out
 }
@@ -75,13 +69,8 @@ stop_all()
 
 
 # Startup the container
-if [ -z $1 ] || [ "$1" == "run" ]; then
+if [ -z $1 ]; then
 	start_container
-fi
-
-# Initalize the container
-if [ "$1" == "init" ]; then 
-	init_container	
 fi
 
 # Start all
